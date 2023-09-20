@@ -15,7 +15,10 @@ import './style.css';
 export function Events() {
   const [text, setText] = useState('Nie kliknięto we mnie');
   const [counter, setCounter] = useState(0);
+
   const [inputText, setInputText] = useState('');
+
+
 
   function handleOnClick() {
     setText('Kliknięto we mnie');
@@ -38,6 +41,7 @@ export function Events() {
   //counter >= 3
   // ? setCounter((counter) => counter + 2)
   // : setCounter((counter) => counter + 1);
+
 
   // If..else if..else
   // if (counter >= 5) {
@@ -68,8 +72,8 @@ export function Events() {
       <button className="events-btn" onClick={handleGreeting}>
         Kliknij
       </button>
-
       <button className="events-btn" onClick={handleOnClick}>
+
         {counter > 0 ? `${text} ${counter} razy` : text}
       </button>
     </div>
