@@ -1,12 +1,14 @@
 import './styles.css';
-import { Link } from 'react-router-dom';
+
+import { DashboardCard } from './DashboardCard';
+
 import { PersonalCardIcon } from '../Components/Icons/PersonalCardIcon';
 import { EditIcon } from '../Components/Icons/EditIcon';
 import { BookIcon } from '../Components/Icons/BookIcon';
 import { MessagesIcon } from '../Components/Icons/MessagesIcon';
 import { CalendarIcon } from '../Components/Icons/CalendarIcon';
 
-const dashboardCards = [
+const cards = [
   {
     title: 'Moje CV',
     icon: <PersonalCardIcon />,
@@ -46,21 +48,20 @@ const dashboardCards = [
 export const Dashboard = () => {
   return (
     <div className="dashboard">
-      <h1 className="dashboard-greeting">Hej tu Kamila</h1>
+      <h1 className="dashboard-greeting">Hej, tu Kamila</h1>
       <p className="dashborad-description">
         Poniżej znajdziesz najważniejsze informacje na temat mojej działalności.
       </p>
+
       <div className="dashboard-cards">
-        {dashboardCards.map((card) => {
-          return (
-            <div className="dashboard-card">
-              <h3>{card.title}</h3>
-              {card.icon}
-              <p>{card.description}</p>
-              <Link to={card.link}>zobacz więcej {`>`} </Link>
-            </div>
-          );
-        })}
+        {cards.map(({ title, icon, description, link }) => (
+          <DashboardCard
+            title={title}
+            icon={icon}
+            description={description}
+            link={link}
+          />
+        ))}
       </div>
       <aside className="dashboard-aside"></aside>
     </div>
