@@ -9,6 +9,7 @@ import { MessagesIcon } from '../Components/Icons/MessagesIcon';
 import { CalendarIcon } from '../Components/Icons/CalendarIcon';
 import AvatarPhoto from '../Images/AvatarPhoto.svg';
 
+
 const cards = [
   {
     title: 'Moje CV',
