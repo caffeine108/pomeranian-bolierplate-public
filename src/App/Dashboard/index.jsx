@@ -75,7 +75,7 @@ export const Dashboard = () => {
             height={90}
           ></img>
         </div>
-        <p className="aside-name">Kamila Wyroślak</p>
+        <div className="aside-name">Kamila Wyroślak</div>
         <p className="aside-city">Gdynia</p>
         <div className="aside-mail">
           <p>e-mail:</p>
