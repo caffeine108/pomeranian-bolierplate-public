@@ -13,6 +13,7 @@ import React from 'react';
 
 // cwiczenia w linkach ze strony mdn web docs
 
+
 // 11. slice() - jezeli jeden argument ucina nam string od tego indexu / jezeli podamy 2 argumenty to od pierwszego do drugiego podanego indexu
 
 // 1. Napisz funkcje która zwraca string z podniesioną pierwszą literą
@@ -50,22 +51,7 @@ const StringMethods = () => {
     return `Is valid email: ${str}: ${result}`;
   }
 
-  return (
-    <div>
-      <h2>String methods cardio</h2>
-
-      <ol>
-        <li>{capitalizeFirstLetter('cześć 👋')}</li>
-        <li>{sliceFromIndex('Hello world!', 5)}</li>
-        <li>{checkValidEmail('test@test.com')}</li>
-      </ol>
-    </div>
-  );
-};
-
-export { StringMethods };
-
-//funkcja zwroci nam boolean (prefix is[...])
+  //funkcja zwroci nam boolean (prefix is[...])
 const isPalindrome = (str = '') => {
   //normalizujemy stringa (toLowerCase - zamienaimy znaki na małe; usuwamy białe znaki replace())
 
@@ -87,3 +73,21 @@ if (getIsPalindrome) {
 } else {
   console.log('nie jest palindromem');
 }
+  
+  return (
+    <div>
+      <h2>String methods cardio</h2>
+
+      <ol>
+        <li>{capitalizeFirstLetter('cześć 👋')}</li>
+        <li>{sliceFromIndex('Hello world!', 5)}</li>
+        <li>{checkValidEmail('test@test.com')}</li>
+      </ol>
+    </div>
+  );
+};
+
+
+
+export { StringMethods };
+
