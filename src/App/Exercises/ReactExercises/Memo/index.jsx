@@ -11,28 +11,24 @@ const keys = ['A', 'U', 'K', 'R', '5', 'S', 'P', 'W', 'Q', 'F'];
 export const Memo = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [time, setTime] = useState(game_time);
-  const [moves, setMoves] = useState(2);
+  const [moves, setMoves] = useState(0);
   const [score, setScore] = useState(0);
   const [isGameEnded, setIsGameEnded] = useState(false);
   const [gameCards, setGameCards] = useState([]);
-  const [firstKeyID, setFirstKeyID] = useState('');
-  const [secondKeyID, setSecondKeyID] = useState('');
-
-  // state dla id 1 klikniecia 1key
-  // state dla id 2 klikniecia 2key
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleStartGame = () => {
     setIsGameStarted(true);
     setTime(game_time);
     setScore(0);
     setIsGameEnded(false);
+    setMoves(0);
   };
 
   const handlePassGame = () => {
     setIsGameStarted(false);
     setIsGameEnded(true);
-    setFirstKeyID('');
-    setSecondKeyID('');
+    setSelectedCard(null);
   };
 
   function shuffleArray(s) {
@@ -43,7 +39,7 @@ export const Memo = () => {
     return s;
   }
 
-  const cardsGenerator = (num) => {
+  const shuffleCards = (num) => {
     const newArray = [];
     for (let i = 0; i < num / 2; i++) {
       newArray.push({
@@ -61,81 +57,58 @@ export const Memo = () => {
     }
     const shuffleCards = shuffleArray(newArray);
     setGameCards(shuffleCards);
-    // console.log(gameCards);
   };
 
-  const handleClick = (clickedCard, counter) => {
-    if (firstKeyID === '') {
-      setFirstKeyID(clickedCard.keyID);
-      return;
+  const handleClick = (clickedCard) => {
+    if (!isGameStarted || clickedCard.isDone || selectedCard === clickedCard) {
+      return; // Nie można kliknąć, jeśli gra się nie zaczęła, karta jest już odnaleziona, lub kliknięto tę samą kartę.
     }
-    if (clickedCard.id !== firstKeyID) {
-      setSecondKeyID(clickedCard.keyID);
-      return;
 
-gameCards[firstKeyID].isDone = true;
-gameCrads[secondKeyID].isDone = true;
-setGameCards([...gameCards]);
+    setMoves(moves + 1);
 
-return;
-
-
+    if (selectedCard) {
+      checkMatch(selectedCard, clickedCard);
+    } else {
+      setSelectedCard(clickedCard);
     }
   };
 
-  useEffect(() => {
-    if (firstKeyID !== '' && secondKeyID !== '') {
-      console.log(firstKeyID, secondKeyID, 'firstKeyID, secondKeyID');
-      setGameCards(
-        gameCards.map((card) => {
-          console.log(
-            card.keyID,
-            firstKeyID,
-            secondKeyID,
-            'card.keyID, firstKeyID, secondKeyID'
-          );
-          const isDone =
-            (card.keyID === firstKeyID || card.keyID === secondKeyID) &&
-            firstKeyID === secondKeyID;
-
-          return {
-            ...card,
-            isDone: isDone,
-          };
-        })
-      );
+  const checkMatch = (firstCard, secondCard) => {
+    if (firstCard.key === secondCard.key) {
+      // Pasuje
+      const updatedCards = gameCards.map((card) => {
+        if (card.id === firstCard.id || card.id === secondCard.id) {
+          return { ...card, isDone: true };
+        }
+        return card;
+      });
+      setGameCards(updatedCards);
+      setScore(score + 1);
     }
-  }, [secondKeyID]);
 
-  useEffect(() => {
-    if (firstKeyID !== secondKeyID) {
-      setTimeout(() => {
-        setFirstKeyID('');
-        setSecondKeyID('');
-      }, 300);
+    setSelectedCard(null);
+
+    // Sprawdzamy, czy wszystkie pary zostały odnalezione
+    if (gameCards.every((card) => card.isDone)) {
+      setIsGameEnded(true);
     }
-  }, [firstKeyID, secondKeyID]);
+  };
 
   useEffect(() => {
     if (isGameStarted) {
       const intervalId = setInterval(() => {
-        time > 0 && setTime(time - 1);
+        if (time > 0) {
+          setTime(time - 1);
+        }
       }, 1000);
 
       return () => clearInterval(intervalId);
     }
   }, [time, isGameStarted]);
 
-  useEffect(() => {
-    if (time === 0) {
-      // handlePassGame();
-      setIsGameEnded(true);
-    }
-  }, [time]);
-
   let min = Math.floor(time / 60);
   let sec = time % 60;
-  sec = sec <div 10 ? '0' + sec : sec;
+  sec = sec < 10 ? '0' + sec : sec;
 
   return (
     <div className="wrapper">
@@ -187,31 +160,20 @@ return;
           </div>
 
           {/* WIDOK TABELI ODKRYWANIA KART */}
-
           <div className="cardsplace">
-            {gameCards.map((el, index) => {
-              // sprawdzamy, dwa warunki
-              return (
-                <div
-                onClick={() => handleClick(el, index)}
+            {gameCards.map((el) => (
+              <div
+                onClick={() => handleClick(el)}
                 className={`onecard ${el.isDone ? 'green' : ''} ${
-                  (firstKeyID === el.keyID || secondKeyID === el.keyID) && !el.isDone
-                    ? 'red'
-                    : ''
+                  selectedCard === el ? 'red' : ''
                 }`}
               >
-            <span>
-        {(el.isDone || firstKeyID === el.keyID || secondKeyID === el.keyID) && el.key}
-      </span>
-    </div>
-              );
-            })}
-          
-            </div>
-            </div>
-        
+                <span>{el.isDone || selectedCard === el ? el.key : ''}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : (
-
         <div>
           <div className="menuPanel">
             {/* Gra nie wystartowała - LICZBA ELEMENTOW */}
@@ -219,7 +181,7 @@ return;
               <div className="title">LICZBA ELEMENTÓW</div>
               <div className="content">
                 <button
-                  onClick={() => cardsGenerator(8)}
+                  onClick={() => shuffleCards(8)}
                   className={
                     gameCards.length === 8 ? 'current btn_memo' : 'btn_memo'
                   }
@@ -227,7 +189,7 @@ return;
                   8 elementów
                 </button>
                 <button
-                  onClick={() => cardsGenerator(16)}
+                  onClick={() => shuffleCards(16)}
                   className={
                     gameCards.length === 16 ? 'current btn_memo' : 'btn_memo'
                   }
@@ -235,7 +197,7 @@ return;
                   16 elementów
                 </button>
                 <button
-                  onClick={() => cardsGenerator(20)}
+                  onClick={() => shuffleCards(20)}
                   className={
                     gameCards.length === 20 ? 'current btn_memo' : 'btn_memo'
                   }
