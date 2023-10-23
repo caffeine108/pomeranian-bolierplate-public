@@ -76,13 +76,13 @@ div.content {
   border: none;
   cursor: pointer;
   box-shadow: none;
-  margin: 10px;
-  width: 160px;
-  height: 160px;
   text-align: center;
   line-height: 160px;
   font-size: 100px;
   color: black;
+  margin: 10px;
+  width: 160px;
+  height: 160px;
 }
 
 .onecard:hover {
@@ -92,4 +92,14 @@ div.content {
 }
 .current {
   background-color: #e12b1b;
+}
+
+.red {
+  background-color: #f3aea8;
+  color: black;
+}
+
+.green {
+  background-color: #e2fbd7;
+  color: black;
 }

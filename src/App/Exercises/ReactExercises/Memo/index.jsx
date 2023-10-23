@@ -72,6 +72,14 @@ export const Memo = () => {
     if (clickedCard.id !== firstKeyID) {
       setSecondKeyID(clickedCard.keyID);
       return;
+
+gameCards[firstKeyID].isDone = true;
+gameCrads[secondKeyID].isDone = true;
+setGameCards([...gameCards]);
+
+return;
+
+
     }
   };
 
@@ -127,7 +135,7 @@ export const Memo = () => {
 
   let min = Math.floor(time / 60);
   let sec = time % 60;
-  sec = sec < 10 ? '0' + sec : sec;
+  sec = sec <div 10 ? '0' + sec : sec;
 
   return (
     <div className="wrapper">
@@ -181,22 +189,29 @@ export const Memo = () => {
           {/* WIDOK TABELI ODKRYWANIA KART */}
 
           <div className="cardsplace">
-            {gameCards.map((el) => {
+            {gameCards.map((el, index) => {
               // sprawdzamy, dwa warunki
               return (
-                <div onClick={() => handleClick(el)} className="onecard">
-                  <span>
-                    {(firstKeyID === el.keyID ||
-                      secondKeyID === el.keyID ||
-                      el.isDone === true) &&
-                      el.key}
-                  </span>
-                </div>
+                <div
+                onClick={() => handleClick(el, index)}
+                className={`onecard ${el.isDone ? 'green' : ''} ${
+                  (firstKeyID === el.keyID || secondKeyID === el.keyID) && !el.isDone
+                    ? 'red'
+                    : ''
+                }`}
+              >
+            <span>
+        {(el.isDone || firstKeyID === el.keyID || secondKeyID === el.keyID) && el.key}
+      </span>
+    </div>
               );
             })}
-          </div>
-        </div>
+          
+            </div>
+            </div>
+        
       ) : (
+
         <div>
           <div className="menuPanel">
             {/* Gra nie wystartowała - LICZBA ELEMENTOW */}
