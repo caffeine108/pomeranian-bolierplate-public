@@ -23,12 +23,17 @@ export const Memo = () => {
     setScore(0);
     setIsGameEnded(false);
     setMoves(0);
+    shuffleCards(num);
   };
 
   const handlePassGame = () => {
     setIsGameStarted(false);
     setIsGameEnded(true);
     setSelectedCard(null);
+
+    setTime(game_time);
+    setMoves(0);
+    setScore(0);
   };
 
   function shuffleArray(s) {
@@ -55,8 +60,8 @@ export const Memo = () => {
         isDone: false,
       });
     }
-    const shuffleCards = shuffleArray(newArray);
-    setGameCards(shuffleCards);
+    const shuffledCards = shuffleArray(newArray);
+    setGameCards(shuffledCards);
   };
 
   const handleClick = (clickedCard) => {
@@ -87,12 +92,16 @@ export const Memo = () => {
     }
 
     setSelectedCard(null);
-
-    // Sprawdzamy, czy wszystkie pary zostały odnalezione
-    if (gameCards.every((card) => card.isDone)) {
-      setIsGameEnded(true);
-    }
   };
+
+  // Sprawdzamy, czy wszystkie pary zostały odnalezione
+
+  useEffect(() => {
+    if (gameCards.every((card) => card.isDone) && gameCards.length > 0) {
+      setIsGameEnded(true);
+      setIsGameStarted(false);
+    }
+  }, [gameCards]);
 
   useEffect(() => {
     if (isGameStarted) {
