@@ -12,14 +12,13 @@ import { jsSetTimeoutMetaData } from './JsSetTimeout/router-data';
 import { jsSetIntervalMetaData } from './JsSetInterval/router-data';
 import { vanishStringMetaData } from './VanishString/router-data';
 import { timerMetaData } from './Timer/router-data';
-
 import { oopMetaData } from './OOP/router-data';
-
 import { jsonMetaData } from './JSON/router-data';
 import { storageMetaData } from './Storage/router-data';
 import { savedInputMetaData } from './SavedInput/router-data';
 import { savedInput2MetaData } from './SavedInput2/router-data';
-import { promiseMetaData } from './Promise/router-data';
+import { promisessMetaData } from './Promise/router-data';
+import { promiseapiMetaData } from './PromiseSimulateApi/router-data';
 
 import { exerciseJsArrayBasicsMetaData } from './Exercise-js-arrays-basics/router-data';
 
@@ -42,6 +41,8 @@ export const blockRouterMetaData = [
   storageMetaData,
   savedInputMetaData,
   savedInput2MetaData,
-  promiseMetaData,
+  promisessMetaData,
+  promiseapiMetaData,
+
 ];
 export const blockRouterData = getParsedRouterDataList(blockRouterMetaData);
