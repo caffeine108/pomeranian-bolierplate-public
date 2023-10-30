@@ -42,7 +42,7 @@ export const PromiseMethods = () => {
       console.log('promiseAny Sukces:', result);
     })
     .catch((errors) => {
-      console.error('promiseAny Błędy :', errors);
+      console.error('promiseAny Błędy', errors);
     });
 
   console.log('promiseAny:', promiseAny);
