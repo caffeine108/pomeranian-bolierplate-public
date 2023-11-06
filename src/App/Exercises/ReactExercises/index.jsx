@@ -1,56 +1,41 @@
-import React from 'react';
-import { Route, Routes, useLocation, useRoutes } from 'react-router-dom';
+import { React, useState } from 'react';
+import './styles.css';
 
-import { GoBackLink } from '../../Components/GoBack/GoBack';
-import { getRouterMetaDataByCurrentPath } from '../../router-data/getRouterMetaDataByCurrentPath';
-
-import { ExerciseItemHeader } from '../ExerciseItemHeader';
-
-import { ExerciseLinks } from './ExerciseLinks';
-import {
-  blockRouterData as reactBlockRouterData,
-  blockRouterMetaData as reactBlockRouterMetaData,
-} from './view-router-data';
-
-export function ReactExercises() {
-  const element = useRoutes(reactBlockRouterData);
+export const ToDoWithServerMentor = () => {
+  const [data, setData] = useState([]); // lista zadan to zmieniajaca sie lista wiec dodalismy useState
+  const handleLoadData = () => {
+    fetch('http://localhost:3333/api/todo')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setData(data);
+      })
+      .catch((err) => {
+        console.log(err, 'err');
+      });
+  };
 
   return (
     <div>
-      <p>React - lista ćwiczeń</p>
-      <GoBackLink label="Zamknij" />
+      <h2>ToDoWithServer</h2>
 
-      <hr />
+      <h3>Lista zadań</h3>
+      <ul>
+        {data?.map((todo) => {
+          return (
+            <li>
+              <div>{todo.title}</div>
+              <div>{todo.author}</div>
+              <div>{todo.note}</div>
+            </li>
+          );
+        })}
+      </ul>
 
-      <Routes>
-        <Route path="" element={<ExerciseLinks />} />
-      </Routes>
+      <div>----------------------</div>
 
-      {element}
+      <button onClick={handleLoadData}>Pobierz listę zadań...</button>
     </div>
   );
-}
-
-export function ReactExercisesItem() {
-  const element = useRoutes(reactBlockRouterData);
-
-  const location = useLocation();
-
-  const { pathname } = location;
-  // const pathname = location.pathname
-
-  const exerciseRouteData = getRouterMetaDataByCurrentPath(
-    pathname,
-    reactBlockRouterMetaData
-  );
-
-  return (
-    <div className="exercise-item-layout">
-      <ExerciseItemHeader data={exerciseRouteData} />
-
-      <hr />
-
-      <div className="exercise-item-content">{element}</div>
-    </div>
-  );
-}
+};
