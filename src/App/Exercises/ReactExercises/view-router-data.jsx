@@ -8,6 +8,7 @@ import { todowithserverMetaData } from './ToDoWithServer/router-data';
 import { todowithservermentorMetaData } from './ToDoWithServerMentor/router-data';
 import { basicFormsMetaData } from './BasicForms/router-data';
 import { basicReactHookFormsMetaData } from './BasicReactHookForms/router-data';
+import { orderFormMetaData } from './OrderForm/router-data';
 
 export const blockRouterMetaData = [
   SubRouteExampleMetaData,
@@ -18,5 +19,6 @@ export const blockRouterMetaData = [
   todowithservermentorMetaData,
   basicFormsMetaData,
   basicReactHookFormsMetaData,
+  orderFormMetaData,
 ];
 export const blockRouterData = getParsedRouterDataList(blockRouterMetaData);
