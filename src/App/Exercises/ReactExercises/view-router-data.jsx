@@ -7,8 +7,8 @@ import { memoMetaData } from './Memo/router-data';
 import { todowithserverMetaData } from './ToDoWithServer/router-data';
 import { todowithservermentorMetaData } from './ToDoWithServerMentor/router-data';
 import { basicFormsMetaData } from './BasicForms/router-data';
-import { basicReactHookFormsMetaData } from './BasicReactHookForms/router-data';
 import { orderFormMetaData } from './OrderForm/router-data';
+import { basicReactHookFormsMetaData } from './BasicReactHookForms/router-data';
 import { reactfirebaseMetaData } from './ReactFirebase/router-data';
 
 export const blockRouterMetaData = [
@@ -19,8 +19,8 @@ export const blockRouterMetaData = [
   todowithserverMetaData,
   todowithservermentorMetaData,
   basicFormsMetaData,
-  basicReactHookFormsMetaData,
   orderFormMetaData,
+  basicReactHookFormsMetaData,
   reactfirebaseMetaData,
 ];
 export const blockRouterData = getParsedRouterDataList(blockRouterMetaData);
