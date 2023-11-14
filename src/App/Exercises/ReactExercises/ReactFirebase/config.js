@@ -4,13 +4,14 @@ import { initializeApp } from 'firebase/app';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+console.log(process.env, 'check');
 const firebaseConfig = {
-  apiKey: 'AIzaSyDh03GG3NcAlcc917Mh4e0TZz-g-Oz2CXQ',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'pomeranian-bolilerplate.firebaseapp.com',
   projectId: 'pomeranian-bolilerplate',
   storageBucket: 'pomeranian-bolilerplate.appspot.com',
-  messagingSenderId: '1083227487412',
-  appId: '1:1083227487412:web:a889124437e72ccff1abe1',
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_I,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
