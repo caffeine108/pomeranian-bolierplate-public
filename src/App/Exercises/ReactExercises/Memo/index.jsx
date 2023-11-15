@@ -23,7 +23,8 @@ export const Memo = () => {
     setScore(0);
     setIsGameEnded(false);
     setMoves(0);
-    shuffleCards(num);
+    // todo: naprawic z num
+    shuffleCards(1);
   };
 
   const handlePassGame = () => {
